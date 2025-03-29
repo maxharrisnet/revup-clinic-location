@@ -40,12 +40,13 @@ function revup_clinic_location_enqueue_map_script()
 {
   wp_enqueue_script(
     'revup-clinic-location-map',
-    plugin_dir_url(dirname(__FILE__)) . 'public/js/revup-clinic-location-map.js',
+    plugin_dir_url(__FILE__) . 'public/js/revup-clinic-location-map.js',
     array('google-maps-api'),
-    '1.0.0',
-    true
+    filemtime(plugin_dir_path(__FILE__) . 'public/js/revup-clinic-location-map.js'),
+    fa
   );
 }
+add_action('wp_enqueue_scripts', 'revup_clinic_location_enqueue_map_script');
 
 function revup_clinic_location_enqueue_styles()
 {

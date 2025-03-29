@@ -1,4 +1,18 @@
 async function init() {
+	console.log('Initializing Google Maps Place Picker...');
+	if (!window.google) {
+		console.error('Google Maps API not loaded');
+		return;
+	}
+	if (!window.google.maps) {
+		console.error('Google Maps API not loaded');
+		return;
+	}
+	if (!window.google.maps.places) {
+		console.error('Google Maps Places API not loaded');
+		return;
+	}
+
 	await customElements.whenDefined('gmp-map');
 
 	const map = document.querySelector('gmp-map');

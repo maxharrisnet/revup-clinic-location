@@ -12,6 +12,7 @@ if (! defined('ABSPATH')) {
  * The settings page is registered under the "Settings" menu in the WordPress admin area.
  * 
  */
+
 function revup_clinic_location_add_settings_page()
 {
   add_options_page(

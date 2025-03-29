@@ -38,15 +38,6 @@ function revup_clinic_location_shortcode($atts)
   // Generate id for unique map instance
   $map_id = 'clinic-map-' . uniqid();
 
-  // Register Google Maps script
-  wp_enqueue_script(
-    'google-maps-api',
-    'https://maps.googleapis.com/maps/api/js?key=' . esc_attr($api_key) . '&libraries=places',
-    array(),
-    null,
-    true
-  );
-
   ob_start();
 ?>
   <div style="width: <?php echo esc_attr($atts['width']); ?>; height: <?php echo esc_attr($atts['height']); ?>;">
@@ -102,7 +93,7 @@ function revup_clinic_location_shortcode($atts)
             } else {
               console.error('Places API error:', status);
               map.innerHTML = `<div style="padding: 20px; text-align: center;">
-              Could not find location: ${<?php echo json_encode($atts['name']); ?>}
+              Could not find location: <?php echo esc_js($atts['name']); ?>
             </div>`;
             }
           });

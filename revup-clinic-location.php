@@ -17,13 +17,43 @@ if (! defined('ABSPATH')) {
 require_once plugin_dir_path(__FILE__) . 'includes/shortcode.php';
 require_once plugin_dir_path(__FILE__) . 'admin/settings.php';
 
+// Enqueue Google Maps API script
+function revup_clinic_location_enqueue_scripts()
+{
+  // Google Maps API key from WordPress settings
+  $api_key = get_option('revup_google_maps_api_key', '');
+
+  if (!empty($api_key)) {
+    wp_enqueue_script(
+      'google-maps-api',
+      'https://maps.googleapis.com/maps/api/js?key=' . esc_attr($api_key) . '&libraries=places',
+      array(),
+      null,
+      true
+    );
+  }
+}
+add_action('wp_enqueue_scripts', 'revup_clinic_location_enqueue_scripts');
+
+// Enqueue plugin script for the map
+function revup_clinic_location_enqueue_map_script()
+{
+  wp_enqueue_script(
+    'revup-clinic-location-map',
+    plugin_dir_url(dirname(__FILE__)) . 'public/js/revup-clinic-location-map.js',
+    array('google-maps-api'),
+    '1.0.0',
+    true
+  );
+}
+
 function revup_clinic_location_enqueue_styles()
 {
   wp_enqueue_style(
     'revup-clinic-location',
-    plugin_dir_url(dirname(__FILE__)) . 'public/css/revup-clinic-location.css',
+    plugin_dir_url(__FILE__) . 'public/css/revup-clinic-location.css',
     array(),
-    '1.0.0'
+    filemtime(plugin_dir_path(__FILE__) . 'public/css/revup-clinic-location.css')
   );
 }
 add_action('wp_enqueue_scripts', 'revup_clinic_location_enqueue_styles');

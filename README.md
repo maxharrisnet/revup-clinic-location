@@ -8,6 +8,7 @@ This plugin is written as part of a coding assesment for RevUp. It plots the loc
 
 ## Considerations 🤔
 
+
 ## Future Improvements 📋
 
 Here are some things that I would add to this plugin with more time:

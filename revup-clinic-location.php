@@ -11,22 +11,36 @@
 */
 
 if (! defined('ABSPATH')) {
-  exit; // Exit if accessed directly
+  exit;
 }
 
+require_once plugin_dir_path(__FILE__) . 'admin/settings.php';
+require_once plugin_dir_path(__FILE__) . 'includes/shortcode.php';
 
-// Enqueue Google Maps API script
-function revup_enqueue_google_maps_scripts()
+function revup_enqueue_maps_scripts()
 {
-  $api_key = get_option('revup_google_maps_api_key', '');
-  if (!wp_script_is('google-maps-places', 'enqueued')) {
-    wp_enqueue_script('google-maps-places', "https://maps.googleapis.com/maps/api/js?key={$api_key}&libraries=places&callback=initMaps", [], null, true);
-  }
-  wp_enqueue_script('clinic-maps', plugin_dir_url(__FILE__) . 'public/js/revup-clinic-maps.js', ['google-maps-places'], null, true);
-}
-add_action('wp_enqueue_scripts', 'revup_enqueue_google_maps_scripts');
 
-function revup_clinic_location_enqueue_styles()
+  // Enqueue Google Maps API script
+  $api_key = get_option('revup_google_maps_api_key', '');
+  if (!empty($api_key) && !wp_script_is('google-maps-places', 'enqueued')) {
+    wp_enqueue_script('google-maps-places', "https://maps.googleapis.com/maps/api/js?key={$api_key}&libraries=places&loading=async&callback=initMaps", [], null, array('strategy' => 'async', 'in_footer' => true));
+  }
+  // Enqueue the custom script for clinic maps
+  wp_enqueue_script('clinic-maps', plugin_dir_url(__FILE__) . 'public/js/revup-clinic-maps.js', ['google-maps-places'], null, true);
+
+
+
+  // Add async attribute to the script
+  // add_filter('script_loader_tag', function ($tag, $handle) {
+  //   if ('google-maps-places' === $handle) {
+  //     return str_replace(' src', '  async defer src', $tag);
+  //   }
+  //   return $tag;
+  // }, 10, 2);
+}
+add_action('wp_enqueue_scripts', 'revup_enqueue_maps_scripts');
+
+function revup_enqueue_maps_styles()
 {
   wp_enqueue_style(
     'revup-clinic-location',
@@ -35,7 +49,4 @@ function revup_clinic_location_enqueue_styles()
     filemtime(plugin_dir_path(__FILE__) . 'public/css/revup-clinic-location.css')
   );
 }
-add_action('wp_enqueue_scripts', 'revup_clinic_location_enqueue_styles');
-
-require_once plugin_dir_path(__FILE__) . 'includes/shortcode.php';
-require_once plugin_dir_path(__FILE__) . 'admin/settings.php';
+add_action('wp_enqueue_scripts', 'revup_enqueue_maps_styles');

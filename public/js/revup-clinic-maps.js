@@ -1,3 +1,12 @@
+// Define initMaps function at the start so it's available for Google Maps API
+window.initMaps = function () {
+	console.log('Google Maps API loaded');
+	// Initialize any maps on the page
+	document.querySelectorAll('.revup-clinic-map').forEach(function (mapDiv) {
+		initializeClinicMap(mapDiv);
+	});
+};
+
 window.pendingMaps = window.pendingMaps || []; // Store maps that need initialization
 
 function initializeClinicMap(mapDiv) {
@@ -40,12 +49,6 @@ function initializeClinicMap(mapDiv) {
 		}
 	});
 }
-
-// Attach initMaps to the window object so Google Maps API can call it
-window.initMaps = function () {
-	window.pendingMaps.forEach(initializeClinicMap);
-	window.pendingMaps = []; // Clear queue after initialization
-};
 
 document.addEventListener('DOMContentLoaded', function () {
 	document.querySelectorAll('.revup-clinic-map').forEach(function (mapDiv) {

@@ -9,13 +9,14 @@ if (! defined('ABSPATH')) {
  * The shortcode takes the clinic name as an attribute and displays the location on a Google Map.
  * It uses the Google Maps JavaScript API to find the clinic's location and display it on the map.
  *
- * Usage: [clinic_location name="Your Clinic Name" width="100%" height="400px"]
+ * Usage: [clinic_location] (loads default location) [clinic_location name="Your Clinic Name" width="100%" height="400px"] (customizable attributes)
  * 
  * @param array $atts Shortcode attributes
  * @return string HTML output for the shortcode
  * 
  */
-// Shortcode function
+
+
 function revup_clinic_location_shortcode($atts)
 {
   $atts = shortcode_atts([

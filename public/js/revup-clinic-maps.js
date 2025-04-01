@@ -19,7 +19,8 @@ function initializeClinicMap(mapDiv) {
 
 	service.findPlaceFromQuery(request, function (results, status) {
 		if (status === google.maps.places.PlacesServiceStatus.OK && results[0]) {
-			console.log('Places found:', results);
+			// TODO: Handle multiple results if necessary
+			// console.log('Places found:', results); This will log the list of places found
 			var place = results[0];
 			map.setCenter(place.geometry.location);
 

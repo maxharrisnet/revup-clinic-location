@@ -18,6 +18,9 @@ function initializeClinicMap(mapDiv) {
 	var map = new google.maps.Map(mapDiv, {
 		zoom: 15,
 		center: { lat: 0, lng: 0 },
+		mapTypeControl: false,
+		streetViewControl: true,
+		zoomControl: true,
 	});
 
 	var service = new google.maps.places.PlacesService(map);

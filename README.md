@@ -2,7 +2,7 @@
 
 ## Developed by: [Max Harris](www.maxharris.net) 👨🏾‍💻
 
-This plugin is written by Max Harris as part of a coding assesment for RevUp. It plots the locations of dental clinics and displays them in a Google map.
+This plugin is written by Max Harris as part of a coding assessment for RevUp. It plots the locations of dental clinics and displays them in a Google map.
 
 ### Here's what it does:
 
@@ -13,7 +13,7 @@ This plugin is written by Max Harris as part of a coding assesment for RevUp. It
 
 ## Considerations 🤔
 
-- Enqueing the Google Maps API script via the main plugin file using async and defer
+- Enqueuing the Google Maps API script via the main plugin file using async and defer
 - Setting "Brookside Dental Care" as the default location for the map
 - Height and width shortcode attributes for the map
 - Using the Places API to get the locations of dental clinics
@@ -31,3 +31,5 @@ Here are some things that were out of scope of this particular exercise that I w
 - Improve the loading state
 - Add a settings page to allow the user to set the default location for the map
 - More robust marker handling (e.g. if a marker is clicked, it should open the info window for that marker)
+- Better documentation
+- Better error handling

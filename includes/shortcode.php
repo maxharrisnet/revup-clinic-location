@@ -44,7 +44,7 @@ function revup_clinic_location_shortcode($atts)
     <gmpx-api-loader key="<?php echo esc_attr($api_key); ?>" solution-channel="GMP_GE_mapsandplacesautocomplete_v2">
     </gmpx-api-loader>
 
-    <gmp-map id="<?php echo esc_attr($map_id); ?>" zoom="15" map-id="8eaef166049349d4">
+    <gmp-map id="<?php echo esc_attr($map_id); ?>" zoom="15" map-id="<?php echo esc_attr($map_id); ?>">
       <gmp-advanced-marker id="<?php echo esc_attr($map_id); ?>-marker" position=""></gmp-advanced-marker>
     </gmp-map>
 
@@ -58,7 +58,7 @@ function revup_clinic_location_shortcode($atts)
           }
         }, 100);
 
-        function initMap() {
+        async function initMap() {
           const map = document.getElementById('<?php echo esc_attr($map_id); ?>');
           const marker = document.getElementById('<?php echo esc_attr($map_id); ?>-marker');
 

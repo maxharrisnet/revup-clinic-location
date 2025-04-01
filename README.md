@@ -32,5 +32,6 @@ Here are some things that were out of scope of this particular exercise that I w
 - Improve the loading state
 - Add a settings page to allow the user to set the default location for the map
 - Nicer detail window with more information about the clinic
+- Add internationalization support
 - Better documentation
 - Better error handling

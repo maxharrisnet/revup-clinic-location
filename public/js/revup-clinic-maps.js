@@ -1,7 +1,7 @@
-// Define initMaps function at the start so it's available for Google Maps API
-window.initMaps = function () {
+// Define revUpInitMaps function at the start so it's available for Google Maps API
+window.revUpInitMaps = function () {
 	console.log('Google Maps API loaded');
-	// Initialize any maps on the page
+	// Initialize the maps for each shortcode on the page
 	document.querySelectorAll('.revup-clinic-map').forEach(function (mapDiv) {
 		initializeClinicMap(mapDiv);
 	});
@@ -11,7 +11,7 @@ window.pendingMaps = window.pendingMaps || []; // Store maps that need initializ
 
 function initializeClinicMap(mapDiv) {
 	var placeName = mapDiv.getAttribute('data-name');
-	var detailsDiv = document.getElementById(mapDiv.id + '_details'); // Clinic details container
+	var detailsDiv = document.getElementById(mapDiv.id + '_details');
 	var nameSpan = detailsDiv.querySelector('.clinic-name');
 	var addressSpan = detailsDiv.querySelector('.clinic-address');
 
@@ -28,8 +28,9 @@ function initializeClinicMap(mapDiv) {
 
 	service.findPlaceFromQuery(request, function (results, status) {
 		if (status === google.maps.places.PlacesServiceStatus.OK && results[0]) {
-			// TODO: Handle multiple results if necessary
-			// console.log('Places found:', results); This will log the list of places found
+			// TODO: Handle multiple results if necessary, use address as fallback
+			// console.log('Places found:', results);
+
 			var place = results[0];
 			map.setCenter(place.geometry.location);
 

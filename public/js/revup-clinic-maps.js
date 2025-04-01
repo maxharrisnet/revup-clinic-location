@@ -31,25 +31,40 @@ function initializeClinicMap(mapDiv) {
 
 	service.findPlaceFromQuery(request, function (results, status) {
 		if (status === google.maps.places.PlacesServiceStatus.OK && results[0]) {
-			// TODO: Handle multiple results if necessary, use address as fallback
-			// console.log('Places found:', results);
-
 			var place = results[0];
 			map.setCenter(place.geometry.location);
 
-			new google.maps.Marker({
+			// Create marker with position and title
+			var marker = new google.maps.Marker({
 				map: map,
 				position: place.geometry.location,
 				title: place.name,
+				animation: google.maps.Animation.DROP,
 			});
 
-			// Update clinic details
+			// Add info window
+			var infoContent = '<div class="clinic-info">' + '<strong>' + place.name + '</strong><br>' + place.formatted_address + '</div>';
+
+			var infowindow = new google.maps.InfoWindow({
+				content: infoContent,
+			});
+
+			// Add click listener to open info window
+			marker.addListener('click', function () {
+				infowindow.open(map, marker);
+			});
+
+			// Open info window by default
+			infowindow.open(map, marker);
+
+			// Update clinic details below the map
 			nameSpan.textContent = place.name;
 			addressSpan.textContent = place.formatted_address;
 		} else {
 			console.error('Place not found: ' + placeName);
 			nameSpan.textContent = 'Clinic not found';
 			addressSpan.textContent = '';
+			mapDiv.innerHTML = '<div style="padding: 20px; text-align: center;" class="map-error">' + 'Could not find the location: ' + placeName + '</div>';
 		}
 	});
 }

@@ -1,4 +1,4 @@
-# RevUp Special Offers Plugin
+# RevUp Clinic Location Plugin
 
 ## Developed by: [Max Harris](www.maxharris.net) 👨🏾‍💻
 
@@ -10,6 +10,7 @@ This plugin is written by Max Harris as part of a coding assessment for RevUp. I
 - Shortcode accepts a name parameter to specify the location of the dental clinic
 - Uses the Places API to get the locations of dental clinics
 - Uses the Google Maps API to display the map
+- Displays the name and address of the dental clinic below and in a marker on the map
 
 ## Considerations 🤔
 
@@ -25,11 +26,11 @@ This plugin is written by Max Harris as part of a coding assessment for RevUp. I
 
 Here are some things that were out of scope of this particular exercise that I would add to this plugin with more time:
 
-- Handle results with multiple locations (e.g. `[clinic_location name="Harbour Dental Centre"]` returns 'Harbour Centre Dental', and 'Vancouver Harbour Dental'). I would add an address paramater to the shortcode to specify which location to use when needed.
+- Handle results with multiple locations (e.g. `[clinic_location name="Harbour Dental Centre"]` returns 'Harbour Centre Dental', and 'Vancouver Harbour Dental'). I would add an address parameter to the shortcode to specify which location to use when needed.
 - Use the [newer version of the Places API](https://developers.google.com/maps/documentation/javascript/places-migration-overview)
 - Use the [Place Details API](https://developers.google.com/maps/documentation/places/web-service/op-overview#place_details_api) to get more information about the clinics.
 - Improve the loading state
 - Add a settings page to allow the user to set the default location for the map
-- More robust marker handling (e.g. if a marker is clicked, it should open the info window for that marker)
+- Nicer detail window with more information about the clinic
 - Better documentation
 - Better error handling

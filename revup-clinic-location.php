@@ -18,22 +18,28 @@ require_once plugin_dir_path(__FILE__) . 'includes/shortcode.php';
 require_once plugin_dir_path(__FILE__) . 'admin/settings.php';
 
 // Enqueue Google Maps API script
-function revup_clinic_location_enqueue_scripts()
+function revup_enqueue_google_maps_scripts()
 {
-  // Google Maps API key from WordPress settings
   $api_key = get_option('revup_google_maps_api_key', '');
-
   if (!empty($api_key)) {
     wp_enqueue_script(
-      'google-maps-api',
-      'https://maps.googleapis.com/maps/api/js?key=' . esc_attr($api_key) . '&libraries=places&loading=async',
+      'google-maps-js',
+      "https://maps.googleapis.com/maps/api/js?key={$api_key}&libraries=places&loading=async&callback=Function.prototype",
       array(),
       null,
-      array('strategy' => 'aysnc', 'in_footer' => true)
+      true
     );
+
+    // Add async attribute to the script
+    add_filter('script_loader_tag', function ($tag, $handle) {
+      if ('google-maps-js' === $handle) {
+        return str_replace(' src', ' async defer src', $tag);
+      }
+      return $tag;
+    }, 10, 2);
   }
 }
-add_action('wp_enqueue_scripts', 'revup_clinic_location_enqueue_scripts');
+add_action('wp_enqueue_scripts', 'revup_enqueue_google_maps_scripts');
 
 // Enqueue plugin script for the map
 // function revup_clinic_location_enqueue_map_script()

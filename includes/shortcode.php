@@ -28,9 +28,15 @@ function revup_clinic_location_shortcode($atts)
 
   ob_start();
 ?>
-  <div id="<?php echo esc_attr($map_id); ?>" class="clinic-map"
+  <div id="<?php echo esc_attr($map_id); ?>" class="revup-clinic-map"
     data-name="<?php echo esc_attr($atts['name']); ?>"
     style="width: <?php echo esc_attr($atts['width']); ?>; height: <?php echo esc_attr($atts['height']); ?>;">
+  </div>
+  <div class="clinic-details" id="<?php echo esc_attr($map_id); ?>_details">
+    <address>
+      <strong class="clinic-name">Loading...</strong><br>
+      <span class="clinic-address">Fetching address...</span>
+    </address>
   </div>
 <?php
   return ob_get_clean();

@@ -78,3 +78,21 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	});
 });
+
+// Set a timeout to check if Google Maps loads
+setTimeout(function () {
+	if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
+		console.error('Google Maps API failed to load after timeout');
+		document.querySelectorAll('.revup-clinic-map').forEach(function (mapDiv) {
+			mapDiv.innerHTML = '<div style="padding: 20px; text-align: center;" class="map-error">' + '<p>Google Maps could not be loaded.</p>' + '<p>This might be due to an ad blocker or network issue.</p>' + '</div>';
+
+			var detailsDiv = document.getElementById(mapDiv.id + '_details');
+			if (detailsDiv) {
+				var nameSpan = detailsDiv.querySelector('.clinic-name');
+				var addressSpan = detailsDiv.querySelector('.clinic-address');
+				if (nameSpan) nameSpan.textContent = 'Map loading error';
+				if (addressSpan) addressSpan.textContent = 'Maps API could not be loaded';
+			}
+		});
+	}
+}, 5000); // 5 second timeout
